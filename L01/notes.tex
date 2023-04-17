@@ -69,5 +69,30 @@ Four levels of persistence:
 		\item Version of DS represented by pointer
 	\end{itemize}
 \end{itemize}
+\subsection{Partial Persistence}
+\begin{claim}
+Any pointer machine DS with a  constant number of pointers to any node (constant in-degree) can be transformed into another data structure that is partially persistent with $O(1)$ amortized factor overhead. Constant amount of amortized space per change in the data structure.
+\end{claim}
+\begin{proof}
+	Let our pointer machine have $\le p = O(1)$ pointers to any node for some constant $p$.
+Sketch:
+	\begin{itemize}
+		\item Store all of the back pointers only for the latest version of the DS. 
+		\item Store modifications to fields of DS ($\le 2p$). A modification is going to consist of three things (the version in which something was changed, the field that got changed, and the value that got changed.)
+		\item To read a field at version $v$, look through all the modifications with versions $\le v$ (there are constant many, $\le 2p$).
+		\item Changing a field is hard, since there may not be any room in the mod structure.To modify $\text{node.field} = x$, we first check if there is any space in the mode structure. 
+		\begin{itemize}
+			\item If the node is not full, add a $mod$ $(now, field, x)$.
+			\item If the node is full, 
+		\begin{itemize}
+			\item Make a new $node'$ with all the modifications applied. It will still have back pointers. Initially, the $mod$s will be empty.
+			\item Change back pointers to $node \to node'$.
+			\item Recursively update pointers.
+		\end{itemize}
+	\item Add back pointer from $x$ to $node$.
+	\end{itemize}
+\end{itemize}
+The potential $\phi = c \cdot \sum \# \text{of mods in nodes in latest version} \Longrightarrow$ amortized cost $\le c + c - 2cp + p \text{ recursions}\le 2c$. 
+\end{proof}
 \end{document}
 
