@@ -1,0 +1,73 @@
+%
+\documentclass[11pt]{scrartcl}
+\usepackage[sexy]{evan}
+\title{6.851}
+\date{\today}
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Week 1}
+\subsection{Topics}
+\begin{itemize}
+	\item \textbf{time travel}: temporal data structures; manipulating time
+	\item \textbf{geometry}: higher dimensional data
+	\item \textbf{dynamic optimality}: is there one best binary search tree?
+	\item \textbf{memory hierarchy}: a way to model more realistic computers which have cache, more cache, main memory, and all these different levels
+	\item \textbf{hashing}: most used data structure in CS
+	\item \textbf{integers}: when you know that your data structure are integers and not just arbitrary black boxes that you can compare, you could do a lot better with integers sometimes. 
+	\item \textbf{dynamic graphs}: graphs where edges are being added and maybe deleted (e.g. social network where people are friending and defriending)
+	\item \textbf{strings}: you have a piece of text (e.g. entire world wide web), and you want to search for a substring efficiently
+	\item \textbf{succint data structure}: reducing things to bare minimum of space 
+\end{itemize}
+\subsection{Model of Computation}
+Model of computation that you're working with matter. Models matter. Throughout today, we'll be using a pointer machine model. 
+
+You have a bunch of nodes with some constant number of fields in them (e.g. structs in C). Each of the fields could be a pointer to another node, or it could have some data in it (e.g. integers). You can have pointers to yourself. 
+
+Operations that are allowed:
+\begin{itemize}
+	\item \textbf{Create a new node}: $x = \text{new node}$.
+	\item \textbf{Look at fields}: $x = \text{y.field}$.
+	\item \textbf{Set Fields}: $\text{x.field} = y$.
+	\item \textbf{Perform Operations on Fields}: $x = y + z$.
+	\item \textbf{Destroy Nodes}
+\end{itemize}
+There is a $\textbf{root}$ node as well. 
+\subsection{Temporal Data Structure}
+Two types of persistence: 
+\begin{itemize}
+	\item \textbf{Persistence}: branching universe time travel model (if you make a change in the past, you make a new universe). 
+		\begin{itemize}
+			\item You never destroy old universes.
+			\item Keep all versions of data structure
+			\item Data structure operations relative to specified version
+			\item An update makes and returns  a new version
+		\end{itemize}
+	\item \textbf{Retroactivity}: go back, make a change, and then you can return back to the present to see what happened.
+\end{itemize}
+Four levels of persistence:
+\begin{itemize}
+	\item \textbf{Partial Persistence}
+		\begin{itemize}
+			\item You are only allowed to update the latest version.
+			\item The versions are linearly ordered.
+		\end{itemize}
+	\item \textbf{Full Persistence}
+	\begin{itemize}
+		\item Update any version 
+		\item The versions form a tree.
+	\end{itemize}
+\item \textbf{Confluent Persistence}
+	\begin{itemize}
+		\item Combine two versions to create a new version
+		\item Versions form a DAG (Directed Acyclic Graph)
+	\end{itemize}
+\item \textbf{Functional Persistence}
+	\begin{itemize}
+		\item Never modify nodes
+		\item Only create new nodes
+		\item Version of DS represented by pointer
+	\end{itemize}
+\end{itemize}
+\end{document}
+
